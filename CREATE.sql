@@ -1,13 +1,13 @@
 --- CREATE TABLES and SEQUENCES 
 
--- Create sequences (hn5954)
+-- Create sequences 
 CREATE SEQUENCE member_id_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE transaction_id_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE employee_id_seq START WITH 90000 INCREMENT BY 1;
 CREATE SEQUENCE address_id_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE phone_id_seq START WITH 1 INCREMENT BY 1;
 
--- Create Members Table (hn5954)
+-- Create Members Table 
 CREATE TABLE Members (
 Member_ID NUMBER(10, 0) DEFAULT member_id_seq.NEXTVAL PRIMARY KEY,
 First_Name VARCHAR2(100),
@@ -17,7 +17,7 @@ Email VARCHAR2(200) CONSTRAINT email_length_check CHECK (LENGTH(Email) >= 7),
 CONSTRAINT member_unique_email UNIQUE (Email)
 );
 
--- Create Member_Phone table (hn5954)
+-- Create Member_Phone table
 CREATE TABLE Member_Phone (
 Phone_ID NUMBER(10, 0) PRIMARY KEY,
 Phone_Number CHAR(12),
@@ -26,7 +26,7 @@ Member_ID NUMBER(10, 0),
 CONSTRAINT fk_member_id FOREIGN KEY (Member_ID) REFERENCES Members(Member_ID)
 );
 
--- Create Member_Address Table (hn5954)
+-- Create Member_Address Table 
 CREATE TABLE Member_Address (
 Address_ID NUMBER PRIMARY KEY,
 Address_1 VARCHAR(100),
@@ -36,7 +36,7 @@ Member_State CHAR(2),
 Zip_Code CHAR(5)
 );
 
--- Create Branch table (hn5954)
+-- Create Branch table 
 CREATE TABLE Branch (
 Branch_ID NUMBER PRIMARY KEY,
 Branch_Name VARCHAR2(100),
@@ -48,7 +48,7 @@ Zip_Code CHAR(5),
 CONSTRAINT branch_name_unique UNIQUE (Branch_Name)
 );
 
--- Create Employees table (hn5954)
+-- Create Employees table 
 CREATE TABLE Employees (
 Employee_ID NUMBER DEFAULT employee_id_seq.NEXTVAL PRIMARY KEY,
 Branch_ID NUMBER,
@@ -66,7 +66,7 @@ Emp_Level CHAR(1) CHECK (Emp_Level IN ('1', '2', '3', '4', '5')),
 CONSTRAINT fk_branch_id_employees FOREIGN KEY (Branch_ID) REFERENCES Branch(Branch_ID)
 );
 
--- Create Loans table (hn5954)
+-- Create Loans table 
 CREATE TABLE Loans (
 Loan_Number NUMBER PRIMARY KEY,
 Member_ID NUMBER,
@@ -85,7 +85,7 @@ CONSTRAINT fk_employee_id FOREIGN KEY (Employee_ID) REFERENCES Employees(Employe
 CONSTRAINT maturity_date_check CHECK (Maturity_Date >= Origination_Date)
 );
 
--- Create Transaction_History table (hn5954)
+-- Create Transaction_History table 
 CREATE TABLE Transaction_History (
 Transaction_ID NUMBER PRIMARY KEY,
 Loan_Number NUMBER,
@@ -96,7 +96,7 @@ Updated_Balance NUMBER(10, 2) CHECK (Updated_Balance >= 0),
 CONSTRAINT fk_loan_number FOREIGN KEY (Loan_Number) REFERENCES Loans(Loan_Number)
 );
 
--- Create Member_Tax_ID table (hn5954)
+-- Create Member_Tax_ID table 
 CREATE TABLE Member_Tax_ID (
 Member_ID NUMBER PRIMARY KEY,
 Tax_ID CHAR(9),
@@ -104,7 +104,7 @@ CONSTRAINT fk_member_tax_id FOREIGN KEY (Member_ID) REFERENCES Members(Member_ID
 CONSTRAINT fk_tax_id UNIQUE (Tax_ID)
 );
 
--- Create Member_Address_Link table (hn5954)
+-- Create Member_Address_Link table 
 CREATE TABLE Member_Address_Link (
 Member_ID NUMBER,
 Address_ID NUMBER,
